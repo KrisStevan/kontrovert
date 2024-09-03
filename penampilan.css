@@ -1,0 +1,243 @@
+#header{
+	background-color:red;
+	width:98.775%;
+	height:70px;
+}
+#isiHeader{
+	margin-top:10px;
+	margin-right:10px;
+	float:right;
+}
+.nav{
+	background-color:#993303;
+	width:99%;
+	height:10%;
+}
+#article{
+	margin-top:-10px;
+	display: inline-block;
+	width:35%;
+	border:1px solid black;
+}
+#gambar{
+	margin-top:10px;
+	width:35%;
+	border:1px solid black;
+	height:360px;
+}
+#article h1,h2,p{
+	margin-left:15px;
+	margin-right:15px;
+	font-size:15px;
+}
+#scienceNews{
+	float:left;
+	margin-top:-505px;
+	margin-left:36%;
+	width:36.5%; 
+	height:503px;
+	display: inline-block;
+	border:1px solid black;
+}
+#scienceOTD{
+	float:right;
+	margin-top:-505px;
+	margin-right:17px;
+	width:25%; 
+	height:503px;
+	display: inline-block;
+	border:1px solid black;
+}
+#isiHeader:ul{
+	list-style-type: none;
+    padding: -10px;
+}
+#dropdown ul{
+	list-style-type: none;
+    margin: 0;
+    padding-top: 0px;
+    padding-left: 0px;
+	float:center;
+}
+.mainNav a:link, .mainNav a:visited {
+    display: block;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+	padding-left:15px;
+	padding-right:15px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.mainNav a:hover {
+    opacity:0.5;
+}
+#isian a{
+	text-align:left;
+	padding:0px;
+	color:black;
+	font-weight: normal;
+	display: inline;
+}
+.dropDown{
+	position:relative;
+}
+.dropDown:after{
+	content:"\25BC";
+	font-size:.5em;
+	display:block;
+	position:absolute;
+	top:38%;
+	right:0%;
+}
+.dropDown:hover > .dropNav{
+	display:block;
+}
+.dropNav{
+	position:absolute;
+	display:none;
+	width:150px;
+	margin-left:-0px;
+}
+.dropNav li{
+	list-style-type: none;
+	margin-left:-25px;
+}
+.mainNav{
+	background-color:#993303;
+	width:95.64%;
+	margin-top:0px;
+	height:40px;
+	margin-left:0px;
+	list-style-type: none;
+}
+.mainnav ul{
+	background-color:#993303;
+	margin-left:0px;
+}
+.mainNav > li {
+    float: left;
+    border-left: solid 1px #1e2a36;
+	margin-left:-2px;
+}
+.mainNav a {
+	background-color:#993303;
+    display: block;
+    padding: 10px;
+	padding-left: 14.5px;
+	padding-right:20px;
+	margin-left:-13px;
+    text-decoration: none;
+}
+#clock{
+	margin-top:20px;
+	color:black;
+	font-size: 150%;
+	text-align:center;
+	background-color: #98CC94;
+}
+#isian, #isianRumus, #isianRumusKimia{
+	width:98.764%;
+	border:solid 1px #1e2a36;
+	border-radius:10px;
+}
+#isianBidang{
+	width:68%;
+	/*border:solid 1px #1e2a36;
+	border-radius:10px;*/
+	margin-left:410px;
+	margin-top:-10px;
+}
+#menuRumus{
+	background-color:#CC3333;
+	width:30%;
+	float:left;
+	margin-top:-10px;
+}
+#menuRumus ul
+{
+	list-style-type: none;
+	margin-top: -0px;
+	margin-left:-60px;
+	margin-bottom: 0px;
+	font-size:18px;
+}
+#menuRumus li{
+	margin-top:18px;
+	margin-left:21px;
+	border-bottom:1px solid #660000;
+}
+#menuRumus li a
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	margin-left: 40px;
+	margin-top: 40px; 
+	font-weight: normal; 
+	height: 25px; 
+	text-decoration: none;
+}
+#menuRumus li a:link, #menuRumus li a:visited, #menuRumus  li a:link, #menuRumus li a:visited
+{
+	color: #FFF; 
+	display: block; 
+	background-color:#CC3333;
+	margin-top:-15px;
+	margin-left: 10px;
+}
+#menuRumus li a:hover 
+{ 
+	color: #FFF; 
+	opacity:0.5;
+}
+table{
+	border-collapse: collapse;
+}
+#isianRumus ul li{
+	display: inline;
+	list-style-type: none;
+	margin-left:230px;
+	margin-right:-230px;
+}
+#isianRumus img, #isianRumusKimia img, #menuAlgo img{
+	border:1px solid;
+}
+#isianRumusKimia ul li{
+	display: inline;
+	list-style-type: none;
+	margin-left:10px;
+	margin-right:10px;
+}
+#gambarAlgo{
+	display: inline;
+	list-style-type: none;
+	margin-left:-220px;
+	margin-right:-10px;
+}
+#menuAlgo{
+	display: inline;
+	list-style-type: none;
+	margin-left:-80px;
+	margin-right:-70px;
+}
+#menuProbStat{
+	display: inline;
+	list-style-type: none;
+	margin-left:160px;
+	margin-right:-110px;
+}
+#menuBisnis{
+	display: inline;
+	list-style-type: none;
+	margin-left:100px;
+	margin-right:-110px;
+}
+#txtHint{
+	width:100%;
+	height:180px;
+}
+#RumusForm {
+	margin-left:13px;
+}
+#tombolPeraga{
+	width:100%;
+}
