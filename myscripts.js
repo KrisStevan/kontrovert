@@ -1,49 +1,62 @@
+function adjustImageSize(imgId, widthDelta, heightDelta){
+    var img = document.getElementById(imgId);
+    if (!img) return;
+
+    var currentWidth = img.clientWidth || img.width || 0;
+    var currentHeight = img.clientHeight || img.height || 0;
+
+    if (widthDelta !== 0) {
+        var newWidth = Math.max(50, currentWidth + widthDelta);
+        img.style.width = newWidth + 'px';
+    }
+    if (heightDelta !== 0) {
+        var newHeight = Math.max(50, currentHeight + heightDelta);
+        img.style.height = newHeight + 'px';
+    }
+}
+
 function perkecilGDB(){
-	document.getElementById('gambarDB').width -= 50;
+    adjustImageSize('gambarDB', -50, 0);
 }
 function perkecilGDBVar(id){
-	var img = document.getElementById(id);
-    img.width -= 50;
+    adjustImageSize(id, -50, 0);
 }
 
 function perbesarGDB(){
-	document.getElementById('gambarDB').width += 50;
+    adjustImageSize('gambarDB', 50, 0);
 }
 function perbesarGDBVar(id){
-	var img = document.getElementById(id);
-    img.width += 50;
+    adjustImageSize(id, 50, 0);
 }
 
 function perendahGDB(){
-	document.getElementById('gambarDB').height -= 50;
+    adjustImageSize('gambarDB', 0, -50);
 }
 function perendahGDBVar(id){
-	var img = document.getElementById(id);
-    img.height -= 50;
+    adjustImageSize(id, 0, -50);
 }
 
 function pertinggiGDB(){
-	document.getElementById('gambarDB').height += 50;
+    adjustImageSize('gambarDB', 0, 50);
 }
 function pertinggiGDBVar(id){
-	var img = document.getElementById(id);
-    img.height += 50;
+    adjustImageSize(id, 0, 50);
 }
 
 function perendahGNDB(){
-	document.getElementById('gambarNonDB').height -= 50;
+    adjustImageSize('gambarNonDB', 0, -50);
 }
 
 function pertinggiGNDB(){
-	document.getElementById('gambarNonDB').height += 50;
-} 
+    adjustImageSize('gambarNonDB', 0, 50);
+}
 
 function perkecilGNDB(){
-	document.getElementById('gambarNonDB').width -= 50;
+    adjustImageSize('gambarNonDB', -50, 0);
 }
 
 function perbesarGNDB(){
-	document.getElementById('gambarNonDB').width += 50;
+    adjustImageSize('gambarNonDB', 50, 0);
 }
 
 function konversi(awalan)

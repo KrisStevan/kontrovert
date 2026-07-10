@@ -1,38 +1,49 @@
 <html>
-	<?php require "menuUtama.php";?>
+	<head>
+		<script src="global-layout.js" defer></script>
+		<global-header></global-header>
+	</head>
 	<body>
-		<?php require "slideMenu.php";?>
+		<script src="myscripts.js"></script>
+		
 		<!--bagian untuk isinya -->
-		<div id="isian">
-			<center><h1>Berat dan Massa</h1></center>
-			<p>
-			<?php
-				include "db.inc.php";
-				connect_db($db);
-				$sqlstr = "SELECT * from gambar WHERE idTopik = 2 AND kodeTempat = 'K' ORDER BY id DESC limit 1";
-				$hasil=mysqli_query($db, $sqlstr);
-				$row=mysqli_fetch_row($hasil);
-				if(!$row)
-					echo "Data Tidak Dapat Ditampilkan";
-				else{
-					do{
-						list($id,$tanggal,$kodeTempat,$idTopik,$gambar,$keterangan,$sumber) = $row;
-						echo "<p>$keterangan</p>";
-						echo "<center><img src='Images/$gambar' id='gambarDB' width=900px height=600px></center>";
-						
-						//tombol pengatur gambar
-						echo "<br><center>";
-						echo " <button onclick=\"perkecilGDB()\"><</button> ";
-						echo " <button onclick=\"perbesarGDB()\">></button> ";
-						echo " <button onclick=\"pertinggiGDB()\">^</button> ";
-						echo " <button onclick=\"perendahGDB()\">v</button> ";
-						echo "</center>";
-						
-						echo "<p>Sumber : $sumber</p>";
-					}while($row=mysqli_fetch_row($hasil));
-				}// akhir else
-			?>
-			</p>
+		<div class="hero" role="banner">
+			<div class="hero-inner">
+				<center><h1>Berat dan Massa</h1></center>
+				<p>
+					<?php
+						include "db.inc.php";
+						connect_db($db);
+						$sqlstr = "SELECT * from gambar WHERE idTopik = 2 AND kodeTempat = 'K' ORDER BY id DESC limit 1";
+						$hasil=mysqli_query($db, $sqlstr);
+						$row=mysqli_fetch_row($hasil);
+						if(!$row)
+							echo "Data Tidak Dapat Ditampilkan";
+						else{
+							do{
+								list($id,$tanggal,$kodeTempat,$idTopik,$gambar,$keterangan,$sumber) = $row;
+								echo "<p>$keterangan</p>";
+								
+								//tombol pengatur gambar
+								echo "<br><center>";
+								echo " <button id=\"perkecilGDB\" onclick=\"perkecilGDB()\">←</button> ";
+								echo " <button id=\"perbesarGDB\" onclick=\"perbesarGDB()\">→</button> ";
+								echo " <button id=\"pertinggiGDB\" onclick=\"pertinggiGDB()\">↑</button> ";
+								echo " <button id=\"perendahGDB\" onclick=\"perendahGDB()\">↓</button> ";
+								echo "</center>";
+
+								echo "<center><img src='Images/$gambar' id='gambarDB' width=300px height=200px></center>";
+								
+								echo "<p>Sumber : $sumber</p>";
+							}while($row=mysqli_fetch_row($hasil));
+						}// akhir else
+					?>
+				</p>
+			</div>
 		</div>
+
+		<footer id="footer" class="site-footer">
+			<global-footer></global-footer>
+		</footer>
 	</body>
 </html>

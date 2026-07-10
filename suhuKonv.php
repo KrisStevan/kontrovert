@@ -1,36 +1,48 @@
 <html>
-	<?php require "menuUtama.php";?>
+	<head>
+		<script src="global-layout.js" defer></script>
+		<global-header></global-header>
+	</head>
 	<body>
-		<?php require "slideMenu.php";?>
-		<div id="isian">
-			<form name="BoxForm">
-				<center><h1>Konversi Suhu</h1></center>
-				<h2>Hasil akan segera diketahui dengan cara mengklik kotak inputan lainnya setelah melakukan pengisian</h2>
-					<p>
-						<table>
+		<script src="myscripts.js"></script>
+
+		<div class="hero" role="banner">
+			<div class="hero-inner">
+				<form name="BoxForm">
+					<div class="converter-page">
+						<h1 class="page-title">Konversi Suhu</h1>
+						<p class="converter-note">
+							Masukkan nilai suhu pada salah satu satuan untuk melihat hasil konversi instan ke satuan lainnya.
+						</p>
+						<table class="converter-table">
 							<tr>
 								<td>Celcius</td>
-								<td><input type="text" name="celcius" value="0" onChange="konversiCelcius()"></td>
+								<td><input type="text" name="celcius" value="0" onkeyup="konversiCelcius()"></td>
 							</tr>
 							<tr>
 								<td>Fahrenheit</td>
-								<td><input type="text" name="fahrenheit" value="" onChange="konversiFahrenheit()"></td>
+								<td><input type="text" name="fahrenheit" value="" onkeyup="konversiFahrenheit()"></td>
 							</tr>
 							<tr>
 								<td>Reamur</td>
-								<td><input type="text" name="reamur" value="" onChange="konversiReamur()"></td>
+								<td><input type="text" name="reamur" value="" onkeyup="konversiReamur()"></td>
 							</tr>
 							<tr>
 								<td>Kelvin</td>
-								<td><input type="text" name="kelvin" value="" onChange="konversiKelvin()"></td>
+								<td><input type="text" name="kelvin" value="" onkeyup="konversiKelvin()"></td>
 							</tr>
 							<tr>
 								<td>Rankine</td>
-								<td><input type="text" name="rankine" value="" onChange="konversiRankine()"></td>
+								<td><input type="text" name="rankine" value="" onkeyup="konversiRankine()"></td>
 							</tr>
 						</table>
-					</p>
-			</form>
+					</div>
+				</form>
+			</div>
 		</div>
+
+		<footer id="footer" class="site-footer">
+			<global-footer></global-footer>
+		</footer>
 	</body>
 </html>
