@@ -9,7 +9,7 @@
 		<!--bagian untuk isinya -->
 		<div class="hero" role="banner">
 			<div class="hero-inner">
-				<center><h1>Daftar Kurs Mata Uang Asing </h1></center>
+				<center><h1 class="page-title">Daftar Kurs Mata Uang Asing </h1></center>
 				<?php
 					include "showSatuan.php";
 					

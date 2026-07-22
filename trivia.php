@@ -6,7 +6,7 @@
 	<body>
 		<div class="hero" role="banner">
 			<div class="hero-inner">
-				<center><h1>Trivia Sains</h1></center>
+				<center><h1 class="page-title">Trivia Sains</h1></center>
 				<p>
 					<?php
 						include "db.inc.php";
@@ -26,7 +26,7 @@
 							$i = 1;
 							do{
 								list($id,$id_topik,$idJenis,$gambar,$judul,$isi,$sumber,$tanggal) = $row;
-								echo "$i. $judul - <a href=\"beritaDetail.php?id=$id\">Yang bener?? </a><br>";
+								echo "$judul - <a href=\"beritaDetail.php?id=$id\">Yang bener?? </a><br>";
 								$i+=1;
 							}while($row=mysqli_fetch_row($hasil_1));
 						}

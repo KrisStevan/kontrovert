@@ -39,7 +39,7 @@
 						$gambar = $baris['gambar'];
 
 						echo "<article class='article'>";
-						echo "<div class='title'><h3>$judul</h3></div>";
+						echo "<div class='title'><h3 class='page-title'>$judul</h3></div>";
 						echo "<div class='meta'><p><strong>Tanggal:</strong> $tanggal</p></div>";
 						echo "<div class='article-content'>";
 						if (!empty($gambar)) {

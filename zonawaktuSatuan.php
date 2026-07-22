@@ -9,7 +9,7 @@
 		<!--bagian untuk isinya -->
 		<div class="hero" role="banner">
 			<div class="hero-inner">
-				<center><h1>Zona Waktu</h1></center>
+				<center><h1 class="page-title">Zona Waktu</h1></center>
 				<p>
 					Pengaruh rotasi bumi dalam mengelilingi matahari menyebabkan perbedaan zona waktu pada setiap wilayah tertentu karena hanya beberapa bagian bumi yang mendapatkan sinar matahari dalam proses revolusinya.
 					Hal ini menyebabkan setiap negara di dunia menetapkan zona waktunya masing-masing.

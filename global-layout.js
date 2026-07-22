@@ -1,19 +1,29 @@
+const getGlobalLayoutBase = () => {
+    const currentScript = document.currentScript || document.querySelector('script[src*="global-layout.js"]');
+    const scriptUrl = currentScript ? new URL(currentScript.getAttribute('src'), window.location.href) : new URL('global-layout.js', window.location.href);
+    return new URL('.', scriptUrl).href;
+};
+
+const getGlobalLayoutAsset = (fileName) => {
+    return new URL(fileName, getGlobalLayoutBase()).href;
+};
+
 class GlobalHeader extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-            <link rel="stylesheet" href="penampilan.css">
+            <link rel="stylesheet" href="${getGlobalLayoutAsset('penampilan.css')}">
             <meta charset="UTF-8">
             
             <title>Kontrovert - Home of Measurements</title>
             
             <div id="header">
-                <a href="home.php">
-                    <img src="Images/logo.jpg" alt="Kontrovert logo" style="height:56px; width:auto; float:left;">
+                <a href="${getGlobalLayoutAsset('home.php')}">
+                    <img src="${getGlobalLayoutAsset('Images/logo.jpg')}" alt="Kontrovert logo" style="height:56px; width:auto; float:left;">
                 </a>
-                <form class="search" action="searches.php" method="get" style="float:right;margin-top:15px;">
+                <form class="search" action="${getGlobalLayoutAsset('searches.php')}" method="get" style="float:right;margin-top:15px;">
                     <input type="text" name="src" placeholder="Search articles, converters, topics...">
                     <button type="submit" style="background:none;border:none;padding:6px;vertical-align:middle"> 
-                        <img src="Images/SearchButton.jpg" alt="Search" style="height:30px;">
+                        <img src="${getGlobalLayoutAsset('Images/SearchButton.jpg')}" alt="Search" style="height:30px;">
                     </button>
                 </form>
                 <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" onclick="this.closest('#header').classList.toggle('menu-open'); this.setAttribute('aria-expanded', this.closest('#header').classList.contains('menu-open'))">Menu</button>
@@ -21,69 +31,80 @@ class GlobalHeader extends HTMLElement {
                     <li class="dropDown">
                         <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Daftar Satuan</a>
                         <ul class="dropNav">
-                            <li><a href="besaranSatuan.php">Besaran dan Satuan</a></li>
-                            <li><a href="currencySatuan.php">Mata Uang</a></li>
-                            <li><a href="beratSatuan.php">Berat / Massa</a></li>
-                            <li><a href="panjangSatuan.php">Panjang</a></li>
-                            <li><a href="suhuSatuan.php">Suhu</a></li>
-                            <li><a href="waktuSatuan.php">Waktu</a></li>
-                            <li><a href="zonawaktuSatuan.php">Zona Waktu</a></li>
+                            <li><a href="${getGlobalLayoutAsset('besaranSatuan.php')}">Besaran dan Satuan</a></li>
+                            <li><a href="${getGlobalLayoutAsset('currencySatuan.php')}">Mata Uang</a></li>
+                            <li><a href="${getGlobalLayoutAsset('beratSatuan.php')}">Berat / Massa</a></li>
+                            <li><a href="${getGlobalLayoutAsset('panjangSatuan.php')}">Panjang</a></li>
+                            <li><a href="${getGlobalLayoutAsset('suhuSatuan.php')}">Suhu</a></li>
+                            <li><a href="${getGlobalLayoutAsset('waktuSatuan.php')}">Waktu</a></li>
+                            <li><a href="${getGlobalLayoutAsset('zonawaktuSatuan.php')}">Zona Waktu</a></li>
                         </ul>
                     </li>
                     <li class="dropDown">
                         <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Konversi</a>
                         <ul class="dropNav">
-                            <li><a href="currencyKonv.php">Umum</a></li>
-                            <li><a href="suhuKonv.php">Suhu</a></li>
-                            <li><a href="beratKonv.php">Berat / Massa</a></li>
-                            <li><a href="panjangKonv.php">Panjang</a></li>
-                            <li><a href="geometriKonv.php">Geometri</a></li>
-                            <li><a href="waktuKonv.php">Waktu</a></li>
+                            <li><a href="${getGlobalLayoutAsset('currencyKonv.php')}">Umum</a></li>
+                            <li><a href="${getGlobalLayoutAsset('suhuKonv.php')}">Suhu</a></li>
+                            <li><a href="${getGlobalLayoutAsset('beratKonv.php')}">Berat / Massa</a></li>
+                            <li><a href="${getGlobalLayoutAsset('panjangKonv.php')}">Panjang</a></li>
+                            <li><a href="${getGlobalLayoutAsset('geometriKonv.php')}">Geometri</a></li>
+                            <li><a href="${getGlobalLayoutAsset('waktuKonv.php')}">Waktu</a></li>
                         </ul>
                     </li>
-                    <!--
                     <li class="dropDown">
-                        <a href="">Rumus</a>
-                        <ul class="dropNav">
-                            <li><a href="rumusFisika.php">Fisika</a></li>
-                            <li><a href="rumusKimia.php">Kimia</a></li>
-                            <li><a href="algoritma.php">Algoritma</a></li>
-                            <li><a href="rumusGeometri.php">Geometri</a></li>
-                            <li><a href="rumusProbStat.php">Statistika</a></li>
-                            <li><a href="rumusBisnis.php">Matematika Ekonomi</a></li>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Materi</a>
+                        <ul class="dropNav" id="materi-menu">
+                            <li><a href="#">Memuat materi...</a></li>
                         </ul>
                     </li>
-                    <li><a href="berita.php">Berita Sains</a></li>
                     <li class="dropDown">
-                        <a href="">Sejarah Sains</a>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Berita Sains</a>
                         <ul class="dropNav">
-                            <li><a href="sejarahSM.php">Sebelum Masehi</a></li>
-                            <li><a href="sejarahAP.php">Abad Pertengahan</a></li>
-                            <li><a href="sejarah10.php">Tahun 1500-1900</a></li>
-                            <li><a href="sejarah20.php">Abad ke-20</a></li>
-                            <li><a href="sejarah21.php">Abad ke-21</a></li>
+                            <li><a href="${getGlobalLayoutAsset('berita.php')}">Berita</a></li>
+                            <li><a href="${getGlobalLayoutAsset('trivia.php')}">Trivia</a></li>
                         </ul>
                     </li>
-                    <li><a href="terapan.php">Sains Sehari-hari</a></li>
                     <li class="dropDown">
-                        <a href="">Kenali Para Ilmuwan</a>
-                        <ul class="dropNav">
-                            <li><a href="ilmuwanBiologi.php">Biologi</a></li>
-                            <li><a href="ilmuwanFisika.php">Fisika</a></li>
-                            <li><a href="ilmuwanKimia.php">Kimia</a></li>
-                            <li><a href="ilmuwanMatematika.php">Matematika</a></li>
-                            <li><a href="ilmuwanKomputer.php">Komputer</a></li>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Login</a>
+                        <ul class="dropNav-login">
+                            <li style="padding: 10px 15px; background-color: #f9f9f9; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                                <form class="login-form" action="${getGlobalLayoutAsset('login.php')}" method="post" style="display:flex;flex-direction:column;gap:8px;min-width:240px;">
+                                    <input type="text" name="username" placeholder="Username" required>
+                                    <input type="password" name="password" placeholder="Password" required>
+                                    <button type="submit" style="background:var(--crimson);color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer">Login</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
-                    -->
-                    <li><a href="trivia.php">Trivia</a></li>
                 </ul>
             </div>
 
-            <script src="myscripts.js"></script>
-            <script src="rumus.js"></script>
+            <script src="${getGlobalLayoutAsset('myscripts.js')}"></script>
+            <script src="${getGlobalLayoutAsset('rumus.js')}"></script>
         `;
-  }
+        this.loadMateriMenu();
+    }
+
+    async loadMateriMenu() {
+        const menu = this.querySelector('#materi-menu');
+        if (!menu) {
+            return;
+        }
+
+        try {
+            const response = await fetch(getGlobalLayoutAsset('topics-menu.php'), { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const html = await response.text();
+            menu.innerHTML = html;
+        } 
+        catch (error) {
+            console.error('Failed to load menu:', error);
+            menu.innerHTML = '<li><a href="#">Materi tidak tersedia</a></li>';
+        }
+    }
 }
 
 class GlobalFooter extends HTMLElement {

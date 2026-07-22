@@ -9,7 +9,7 @@
 		<!--bagian untuk isinya -->
 		<div class="hero" role="banner">
 			<div class="hero-inner">
-				<center><h1>Waktu</h1></center>
+				<center><h1 class="page-title">Waktu</h1></center>
 				<p>
 					<?php
 						include "db.inc.php";

@@ -7,7 +7,7 @@
 		<!--bagian untuk isinya -->
 		<div class="hero" role="banner">
 			<div class="hero-inner">
-				<center><h1>Suhu</h1></center>
+				<center><h1 class="page-title">Suhu</h1></center>
 				<p>
 				<?php
 					include "db.inc.php";
