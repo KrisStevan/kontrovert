@@ -64,14 +64,16 @@ class GlobalHeader extends HTMLElement {
                             <li><a href="${getGlobalLayoutAsset('trivia.php')}">Trivia</a></li>
                         </ul>
                     </li>
+
+                    <!-- login menu -->
                     <li class="dropDown">
                         <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Login</a>
                         <ul class="dropNav-login">
                             <li style="padding: 10px 15px; background-color: #f9f9f9; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                <form class="login-form" action="${getGlobalLayoutAsset('login.php')}" method="post" style="display:flex;flex-direction:column;gap:8px;min-width:240px;">
+                                <form class="login-form" action="${getGlobalLayoutAsset('logs/login.php')}" method="post" style="display:flex;flex-direction:column;gap:8px;min-width:240px;">
                                     <input type="text" name="username" placeholder="Username" required>
                                     <input type="password" name="password" placeholder="Password" required>
-                                    <button type="submit" style="background:var(--crimson);color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer">Login</button>
+                                    <button type="submit" name="submit" style="background:var(--crimson);color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer">Login</button>
                                 </form>
                             </li>
                         </ul>

@@ -3,6 +3,7 @@
 	<head>
 		<script src="global-layout.js" defer></script>
 		<global-header></global-header>
+		<link rel="stylesheet" href="CMS/buttons.css">
 	</head>
 	<body>
 		<div class="hero" role="banner">
@@ -10,7 +11,7 @@
 				<h2>Explore Science &amp; Conversions</h2>
 				<p>Quick converters, clear formulas, and bite-sized science for curious students.</p>
 				<div class="hero-cta">
-					<a class="btn-cta" href="currencyKonv.php">Start Converting</a>
+					<a class="btn-student" href="currencyKonv.php">Start Converting</a>
 				</div>
 			</div>
 		</div>
@@ -67,7 +68,7 @@
 					else
 					{
 						do{
-							list($id,$id_topik,$idJenis,$gambar,$judul,$isi,$sumber,$tanggal) = $row;
+							list($id,$idTopik,$idJenis,$gambar,$judul,$isi,$sumber,$tanggal) = $row;
 							echo "<p>";
 							echo "<img src='Images/$gambar' width=50px height=50px align=left>";
 							echo date_format(date_create($tanggal), "d F Y") . "<br>";
