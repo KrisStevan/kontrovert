@@ -31,12 +31,43 @@
         <script src="https://cdn.tiny.cloud/1/w2jypw38hk4yo3f6zxzqy97j1kv600dm1cocyumjp50mis2s/tinymce/8/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
+                const jenis = document.getElementById("idJenis").value;
                 const topik = document.getElementById("idTopik").value;
+
+                if(jenis) {
+                    chgTopik(jenis);
+                }
 
                 if (topik) {
                     chgMateri(topik);
                 }
             });
+
+            // Form validation
+            function validateForm() {
+                const judul = document.getElementsByName("judul")[0].value.trim();
+                const idJenis = document.getElementById("idJenis").value.trim();
+                const idTopik = document.getElementById("idTopik").value.trim();
+                const idMateri = document.getElementById("idMateri").value.trim();
+                
+                if (judul === '') {
+                    alert('Judul tidak boleh kosong!');
+                    return false;
+                }
+                if (idJenis === '') {
+                    alert('Pilih Jenis terlebih dahulu!');
+                    return false;
+                }
+                if (idTopik === '') {
+                    alert('Pilih Topik terlebih dahulu!');
+                    return false;
+                }
+                if ((idMateri === '') && (idJenis === '5')){
+                    alert('Pilih Materi terlebih dahulu!');
+                    return false;
+                }
+                return true;
+            }
 
             //textarea for isi
             //https://www.tiny.cloud/my-account/integrate/cloud-based/?guide=html
@@ -45,6 +76,28 @@
                 plugins: 'powerpaste advcode table lists checklist',
                 toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
             });
+
+            //change topik
+            function chgTopik(idJenis) {
+                fetch("getTopik.php?idJenis=" + idJenis)
+                    .then(response => response.json())
+                    .then(data => {
+                        let topik = document.getElementById("idTopik");
+                        topik.innerHTML = "";
+
+                        data.forEach(item => {
+                            let option = document.createElement("option");
+                            option.value = item.id;
+                            option.text = item.namaTopik;
+                            topik.appendChild(option);
+                        });
+
+                        // Clear materi dropdown when topik changes
+                        let materi = document.getElementById("idMateri");
+                        materi.innerHTML = "<option value=''>-- Pilih Materi --</option>";
+                    }
+                );
+            }
 
             //change materi
             function chgMateri(idTopik, selectedMateri = null)
@@ -152,9 +205,19 @@
                 $hasNewUpload = false;
 
                 if(isset($_FILES['gambar']) && is_uploaded_file($_FILES['gambar']['tmp_name']) && $_FILES['gambar']['error'] === UPLOAD_ERR_OK){
-                    $uploadDir = realpath(__DIR__ . '/../Images');
-                    if($uploadDir === false){
-                        $uploadDir = __DIR__ . '/../Images';
+                    if ($idJenis === '5') 
+                    {
+                        $uploadDir = realpath(__DIR__ . '/../Images/Materi');
+                        if($uploadDir === false){
+                            $uploadDir = __DIR__ . '/../Images/Materi';
+                        }
+                    } 
+                    else 
+                    {
+                        $uploadDir = realpath(__DIR__ . '/../Images');
+                        if($uploadDir === false){
+                            $uploadDir = __DIR__ . '/../Images';
+                        }
                     }
 
                     $origName = basename($_FILES['gambar']['name']);
@@ -188,7 +251,7 @@
                                 SET idTopik = '$idTopik', idJenis = '$idJenis', 
                                     idMateri = '$idMateri', gambar = '$gambar', 
                                     judul = '$judul', isi = '$isi', sumber = '$sumber', 
-                                    tanggal = '" . date("Y-m-d") . "'
+                                    created_by = '$username', tanggal = '" . date("Y-m-d") . "'
                                 WHERE id = $id ";
 
                     $finMessage = "Artikel sudah di-update!";
@@ -200,9 +263,11 @@
                     $idNew = $idOld["idBerita"] + 1;
 
                     $sqlstr = "INSERT INTO articles (id, idTopik, idJenis, idMateri, 
-                                    gambar, judul, isi, sumber, tanggal)
+                                    gambar, judul, isi, sumber,
+                                    tanggal, created_by)
                                 VALUES($idNew, '$idTopik', '$idJenis', '$idMateri', 
-                                    '$gambar', '$judul', '$isi', '$sumber', '" . date("Y-m-d") . "')";
+                                    '$gambar', '$judul', '$isi', '$sumber', 
+                                    '" . date("Y-m-d") . "', '$username')";
 
                     $finMessage = "Artikel sudah ditambah!";
                 }
@@ -250,7 +315,7 @@
                     </h2>
                 </center>
                 <div class="hero-cta">
-                    <form class="adminaddnews admin-form" method="post" action="#" align="left" enctype="multipart/form-data">
+                    <form class="adminaddnews admin-form" method="post" action="#" align="left" enctype="multipart/form-data" onsubmit="return validateForm();">
                         <table border = "0" style="font-size: 15px;">
                             <?php
                                 if($id != "0")
@@ -268,7 +333,7 @@
                             <tr>
                                 <td>Jenis</td>
                                 <td>
-                                    <select name="idJenis" class="dropdownCMS" style="width: 300px; padding: 5px;">
+                                    <select id="idJenis" name="idJenis" onchange="chgTopik(this.value)" class="dropdownCMS" style="width: 300px; padding: 5px;" required>
                                     <option value="">-- Pilih Jenis --</option>
                                         <?php
                                             $sqlstr = "SELECT id, namaJenis FROM jenis";
@@ -310,7 +375,7 @@
                             <tr>
                                 <td>Topik</td>
                                 <td>
-                                    <select id="idTopik" name="idTopik" onchange="chgMateri(this.value)" class="dropdownCMS" style="width: 300px; padding: 5px;">
+                                    <select id="idTopik" name="idTopik" onchange="chgMateri(this.value)" class="dropdownCMS" style="width: 300px; padding: 5px;" required>
                                         <option value="">-- Pilih Topik --</option>
                                         <?php
                                             $sqlstr = "SELECT id, namaTopik FROM topics";

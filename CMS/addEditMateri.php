@@ -133,7 +133,7 @@
                                     <select name="topics_id" class="adminaddnews">
                                         <option value="">Pilih Topik</option>
                                         <?php
-                                            $topicsResult = mysqli_query($db, "SELECT id, namaTopik FROM topics WHERE fg_in_materi = 1");
+                                            $topicsResult = mysqli_query($db, "SELECT id, namaTopik FROM topics");
                                             while($topic = mysqli_fetch_array($topicsResult)){
                                                 echo "<option value='" . $topic['id'] . "' " . ($topic['id'] == $topics_id ? 'selected' : '') . ">" . $topic['namaTopik'] . "</option>";
                                             }

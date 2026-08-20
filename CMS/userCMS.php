@@ -233,11 +233,14 @@
         <main class="profile-page">
             <section class="profile-card" aria-label="User profile card">
                 <div class="profile-header">
-                    <img class="profile-avatar" src="https://via.placeholder.com/240" alt="User avatar">
+                    <img class="profile-avatar" src="../Images/Profile/<?php echo htmlspecialchars($profile_photo, ENT_QUOTES); ?>" alt="User avatar">
                     
                 </div>
                 <div class="profile-summary">
-                    <h1 class="profile-name"><?php echo $full_name; ?></h1>
+                    <h1 class="profile-name">
+                        <?php echo $full_name; ?>
+                        <a href="editProfile.php">✎</a> 
+                    </h1>
                     <p class="profile-username">@<?php echo $username; ?></p>
                     <p class="profile-bio"><?php echo $bio; ?></p>
                     <div class="profile-details">
@@ -276,7 +279,13 @@
                                                 : "../beritaDetail.php?id=" . urlencode($id);
 
                                             echo "<div class='article-item'>";
-                                                echo "<img src='../Images/$gambar' width=100px height=100px align=center>";
+                                                if ($idJenis === '5'){
+                                                    echo "<img src='../Images/Materi/$gambar' width=100px height=100px align=center>";
+                                                }
+                                                else{
+                                                    echo "<img src='../Images/$gambar' width=100px height=100px align=center>";
+                                                }
+                                                
                                                 echo "<div class='article-item-text'>";
                                                     echo "<span class='article-date'>" . date_format(date_create($tanggal), "d F Y") . "</span> ";
                                                     echo "<a href='" . htmlspecialchars($link, ENT_QUOTES, 'UTF-8') . "' target='_blank'>" . $judul . "</a>";
