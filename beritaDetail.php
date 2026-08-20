@@ -35,8 +35,9 @@
 					else {
 						$judul = htmlspecialchars($baris['judul'], ENT_QUOTES, 'UTF-8');
 						$tanggal = date_format(date_create($baris['tanggal']), "d-M-Y");
-						$isi = nl2br(htmlspecialchars($baris['isi'], ENT_QUOTES, 'UTF-8'));
+						$isi = $baris['isi'];
 						$gambar = $baris['gambar'];
+						$createdBy = htmlspecialchars($baris['created_by'], ENT_QUOTES, 'UTF-8');
 
 						echo "<article class='article'>";
 						echo "<div class='title'><h3 class='page-title'>$judul</h3></div>";
@@ -50,7 +51,11 @@
 
 						if (!empty($baris['sumber'])) {
 							$sumber = htmlspecialchars($baris['sumber'], ENT_QUOTES, 'UTF-8');
-							echo "<div class='article-source'><p><strong>Sumber:</strong> $sumber</p></div>";
+							
+							echo "<div class='article-source'>
+									<p><strong>Sumber:</strong> $sumber</p>
+									<p><strong>Edited By:</strong> $createdBy</p>
+								</div>";
 						}
 						echo "</div></article>";
 					}

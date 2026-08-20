@@ -30,7 +30,7 @@
                                     $topicUrl = 'materi.php?id=' . $idTopic;
 
                                     //articles per material
-                                    $sqlstr2 = 'SELECT id, judul FROM articles WHERE idMateri = ' . $id . ' ORDER BY judul ASC';
+                                    $sqlstr2 = 'SELECT id, judul FROM articles WHERE idMateri = ' . $id . ' AND idJenis = 5 ORDER BY judul ASC';
                                     $result2 = mysqli_query($db, $sqlstr2);
 
                                     //left menubar here

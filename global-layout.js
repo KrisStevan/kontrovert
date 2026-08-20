@@ -29,10 +29,9 @@ class GlobalHeader extends HTMLElement {
                 <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" onclick="this.closest('#header').classList.toggle('menu-open'); this.setAttribute('aria-expanded', this.closest('#header').classList.contains('menu-open'))">Menu</button>
                 <ul class="mainNav" id="main-navigation">
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Daftar Satuan</a>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Besaran</a>
                         <ul class="dropNav">
-                            <li><a href="${getGlobalLayoutAsset('besaranSatuan.php')}">Besaran dan Satuan</a></li>
-                            <li><a href="${getGlobalLayoutAsset('currencySatuan.php')}">Mata Uang</a></li>
+                            <li><a href="${getGlobalLayoutAsset('besaranSatuan.php')}">Pengenalan</a></li>
                             <li><a href="${getGlobalLayoutAsset('beratSatuan.php')}">Berat / Massa</a></li>
                             <li><a href="${getGlobalLayoutAsset('panjangSatuan.php')}">Panjang</a></li>
                             <li><a href="${getGlobalLayoutAsset('suhuSatuan.php')}">Suhu</a></li>
@@ -43,7 +42,8 @@ class GlobalHeader extends HTMLElement {
                     <li class="dropDown">
                         <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Konversi</a>
                         <ul class="dropNav">
-                            <li><a href="${getGlobalLayoutAsset('currencyKonv.php')}">Umum</a></li>
+                            <li><a href="${getGlobalLayoutAsset('genKonv.php')}">Umum</a></li>
+                            <li><a href="${getGlobalLayoutAsset('currencySatuan.php')}">Mata Uang</a></li>
                             <li><a href="${getGlobalLayoutAsset('suhuKonv.php')}">Suhu</a></li>
                             <li><a href="${getGlobalLayoutAsset('beratKonv.php')}">Berat / Massa</a></li>
                             <li><a href="${getGlobalLayoutAsset('panjangKonv.php')}">Panjang</a></li>
@@ -58,25 +58,16 @@ class GlobalHeader extends HTMLElement {
                         </ul>
                     </li>
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Berita Sains</a>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Info</a>
                         <ul class="dropNav">
                             <li><a href="${getGlobalLayoutAsset('berita.php')}">Berita</a></li>
                             <li><a href="${getGlobalLayoutAsset('trivia.php')}">Trivia</a></li>
                         </ul>
                     </li>
 
-                    <!-- login menu -->
-                    <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Login</a>
-                        <ul class="dropNav-login">
-                            <li style="padding: 10px 15px; background-color: #f9f9f9; border-radius: 4px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-                                <form class="login-form" action="${getGlobalLayoutAsset('logs/login.php')}" method="post" style="display:flex;flex-direction:column;gap:8px;min-width:240px;">
-                                    <input type="text" name="username" placeholder="Username" required>
-                                    <input type="password" name="password" placeholder="Password" required>
-                                    <button type="submit" name="submit" style="background:var(--crimson);color:#fff;border:none;padding:8px 10px;border-radius:6px;cursor:pointer">Login</button>
-                                </form>
-                            </li>
-                        </ul>
+                    <!-- login menu-->
+                    <li class="dropDown" id="login-menu">
+                        <!-- Loaded dynamically -->
                     </li>
                 </ul>
             </div>
@@ -85,6 +76,7 @@ class GlobalHeader extends HTMLElement {
             <script src="${getGlobalLayoutAsset('rumus.js')}"></script>
         `;
         this.loadMateriMenu();
+        this.loadLoginMenu();
     }
 
     async loadMateriMenu() {
@@ -105,6 +97,27 @@ class GlobalHeader extends HTMLElement {
         catch (error) {
             console.error('Failed to load menu:', error);
             menu.innerHTML = '<li><a href="#">Materi tidak tersedia</a></li>';
+        }
+    }
+
+    async loadLoginMenu() {
+        const menu = this.querySelector('#login-menu');
+        if (!menu) {
+            return;
+        }
+
+        try {
+            const response = await fetch(getGlobalLayoutAsset('login-menu.php'), { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const html = await response.text();
+            menu.innerHTML = html;
+        } 
+        catch (error) {
+            console.error('Failed to load login menu:', error);
+            menu.innerHTML = '<li><a href="#">Login unavailable</a></li>';
         }
     }
 }

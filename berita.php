@@ -20,7 +20,7 @@
 					$offset=($halaman-1)*10;
 
 					$sqlstr = "SELECT id, judul, tanggal, isi, gambar, sumber
-								from articles WHERE idJenis='1' order by id DESC limit $offset,4";
+								from articles WHERE idJenis IN ('1','3','6') order by id DESC limit $offset,4";
 					$hasil=mysqli_query($db, $sqlstr);
 					$row=mysqli_fetch_row($hasil);
 
