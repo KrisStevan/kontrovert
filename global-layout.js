@@ -13,23 +13,24 @@ class GlobalHeader extends HTMLElement {
         this.innerHTML = `
             <link rel="stylesheet" href="${getGlobalLayoutAsset('penampilan.css')}">
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
             
             <title>Kontrovert - Home of Measurements</title>
             
             <div id="header">
                 <a href="${getGlobalLayoutAsset('home.php')}">
-                    <img src="${getGlobalLayoutAsset('Images/logo.jpg')}" alt="Kontrovert logo" style="height:56px; width:auto; float:left;">
+                    <img src="${getGlobalLayoutAsset('Images/logo.jpg')}" alt="Kontrovert logo">
                 </a>
-                <form class="search" action="${getGlobalLayoutAsset('searches.php')}" method="get" style="float:right;margin-top:15px;">
-                    <input type="text" name="src" placeholder="Search articles, converters, topics...">
-                    <button type="submit" style="background:none;border:none;padding:6px;vertical-align:middle"> 
-                        <img src="${getGlobalLayoutAsset('Images/SearchButton.jpg')}" alt="Search" style="height:30px;">
+                <form class="search" action="${getGlobalLayoutAsset('searches.php')}" method="get">
+                    <input type="text" name="src" placeholder="Search...">
+                    <button type="submit"> 
+                        <img src="${getGlobalLayoutAsset('Images/SearchButton.jpg')}" alt="Search">
                     </button>
                 </form>
-                <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation" onclick="this.closest('#header').classList.toggle('menu-open'); this.setAttribute('aria-expanded', this.closest('#header').classList.contains('menu-open'))">Menu</button>
+                <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation">Menu</button>
                 <ul class="mainNav" id="main-navigation">
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Besaran</a>
+                        <a href="#">Besaran</a>
                         <ul class="dropNav">
                             <li><a href="${getGlobalLayoutAsset('besaranSatuan.php')}">Pengenalan</a></li>
                             <li><a href="${getGlobalLayoutAsset('beratSatuan.php')}">Berat / Massa</a></li>
@@ -40,7 +41,7 @@ class GlobalHeader extends HTMLElement {
                         </ul>
                     </li>
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Konversi</a>
+                        <a href="#">Konversi</a>
                         <ul class="dropNav">
                             <li><a href="${getGlobalLayoutAsset('genKonv.php')}">Umum</a></li>
                             <li><a href="${getGlobalLayoutAsset('currencySatuan.php')}">Mata Uang</a></li>
@@ -52,16 +53,17 @@ class GlobalHeader extends HTMLElement {
                         </ul>
                     </li>
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Materi</a>
+                        <a href="#">Materi</a>
                         <ul class="dropNav" id="materi-menu">
                             <li><a href="#">Memuat materi...</a></li>
                         </ul>
                     </li>
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Info</a>
+                        <a href="#">Info</a>
                         <ul class="dropNav">
                             <li><a href="${getGlobalLayoutAsset('berita.php')}">Berita</a></li>
                             <li><a href="${getGlobalLayoutAsset('trivia.php')}">Trivia</a></li>
+                            <li><a href="${getGlobalLayoutAsset('glossary.php')}">Glosarium</a></li>
                         </ul>
                     </li>
 
@@ -75,8 +77,70 @@ class GlobalHeader extends HTMLElement {
             <script src="${getGlobalLayoutAsset('myscripts.js')}"></script>
             <script src="${getGlobalLayoutAsset('rumus.js')}"></script>
         `;
+        this.setupMobileMenu();
         this.loadMateriMenu();
         this.loadLoginMenu();
+    }
+
+    setupMobileMenu() {
+        const header = this.querySelector('#header');
+        const toggleBtn = this.querySelector('.menu-toggle');
+        const mainNav = this.querySelector('.mainNav');
+        const dropDowns = this.querySelectorAll('.dropDown > a');
+
+        if (!toggleBtn || !mainNav) return;
+
+        // Mobile menu toggle
+        toggleBtn.addEventListener('click', () => {
+            header.classList.toggle('menu-open');
+            toggleBtn.setAttribute('aria-expanded', header.classList.contains('menu-open'));
+        });
+
+        // Close menu when a regular link is clicked
+        mainNav.querySelectorAll('a[href]').forEach(link => {
+            if (!link.closest('.dropDown > a')) {
+                link.addEventListener('click', () => {
+                    header.classList.remove('menu-open');
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        // Dropdown toggle for mobile
+        dropDowns.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Only prevent default and toggle on mobile
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropDown = link.closest('.dropDown');
+                    const dropNav = dropDown.querySelector('.dropNav');
+                    const isOpen = dropDown.classList.contains('open');
+
+                    if (isOpen) {
+                        // Close this dropdown
+                        dropDown.classList.remove('open');
+                        dropNav.classList.remove('show');
+                    } else {
+                        // Close all other dropdowns
+                        this.querySelectorAll('.dropDown').forEach(dd => {
+                            dd.classList.remove('open');
+                            dd.querySelector('.dropNav')?.classList.remove('show');
+                        });
+                        // Open current
+                        dropDown.classList.add('open');
+                        dropNav.classList.add('show');
+                    }
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!header.contains(e.target)) {
+                header.classList.remove('menu-open');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
 
     async loadMateriMenu() {
