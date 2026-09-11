@@ -64,6 +64,7 @@ class GlobalHeader extends HTMLElement {
                             <li><a href="${getGlobalLayoutAsset('berita.php')}">Berita</a></li>
                             <li><a href="${getGlobalLayoutAsset('trivia.php')}">Trivia</a></li>
                             <li><a href="${getGlobalLayoutAsset('glossary.php')}">Glosarium</a></li>
+                            <li><a href="${getGlobalLayoutAsset('formula.php')}">Formula</a></li>
                         </ul>
                     </li>
 
