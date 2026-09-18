@@ -74,7 +74,7 @@
                                         echo "<td>$sumber</td>";
                                         echo "<td>" . date('d M Y', strtotime($tanggal)) ."</td>";
                                         echo"<td class='admin-actions'><a href=\"addEditArticle.php?linkID=$id\">✎</a> 
-                                            <a href=\"deleteArticle.php?table=articles&from=shortArticleCMS&linkID=$id\" onclick=\"return confirm('Are you sure you want to delete this data?');\">✕</a></td>";
+                                            <a href=\"delete.php?table=articles&from=shortArticleCMS&linkID=$id\" onclick=\"return confirm('Are you sure you want to delete this data?');\">✕</a></td>";
                                     echo "</tr>";
                                 }while($row = mysqli_fetch_row($hasil));
                             }
@@ -131,7 +131,7 @@
                                         echo "<td>$sumber</td>";
                                         echo "<td>" . date('d M Y', strtotime($tanggal)) ."</td>";
                                         echo"<td class='admin-actions'><a href=\"addEditArticle.php?linkID=$id\">✎</a> 
-                                            <a href=\"deleteArticle.php?table=articles&from=shortArticleCMS&linkID=$id\" onclick=\"return confirm('Are you sure you want to delete this data?');\">✕</a></td>";
+                                            <a href=\"delete.php?table=articles&from=shortArticleCMS&linkID=$id\" onclick=\"return confirm('Are you sure you want to delete this data?');\">✕</a></td>";
                                     echo "</tr>";
                                 }while($rowNews = mysqli_fetch_row($hasilNews));
                             }

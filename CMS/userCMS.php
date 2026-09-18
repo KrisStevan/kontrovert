@@ -150,25 +150,7 @@
                 display: grid;
                 gap: 1rem;
             }
-            .detail-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                padding: 1rem 1.2rem;
-                border-radius: 18px;
-                border: 1px solid #e2e8f0;
-                background: #ffffff;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .detail-row strong {
-                font-size: 0.98rem;
-                color: #0f172a;
-            }
-            .detail-row span {
-                font-size: 0.95rem;
-                color: #475569;
-            }
+            
             .detail-news{
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -233,8 +215,9 @@
         <main class="profile-page">
             <section class="profile-card" aria-label="User profile card">
                 <div class="profile-header">
-                    <img class="profile-avatar" src="../Images/Profile/<?php echo htmlspecialchars($profile_photo, ENT_QUOTES); ?>" alt="User avatar">
-                    
+                    <img class="profile-avatar" 
+                        src="../Images/Profile/<?php echo htmlspecialchars($profile_photo, ENT_QUOTES); ?>" 
+                        alt="User avatar">
                 </div>
                 <div class="profile-summary">
                     <h1 class="profile-name">

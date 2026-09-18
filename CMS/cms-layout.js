@@ -23,16 +23,23 @@ class GlobalHeader extends HTMLElement {
 
                 <ul class="mainNav" id="main-navigation">
                     <li class="dropDown">
-                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Artikel</a>
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Articles</a>
                         <ul class="dropNav">
-                            <li><a href="${getGlobalLayoutAsset('longArticleCMS.php')}">Berita dan Materi</a></li>
-                            <li><a href="${getGlobalLayoutAsset('shortArticleCMS.php')}">Trivia dan Sejarah</a></li>
+                            <li><a href="${getGlobalLayoutAsset('longArticleCMS.php')}">News and Materials</a></li>
+                            <li><a href="${getGlobalLayoutAsset('shortArticleCMS.php')}">Trivia and History</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropDown">
+                        <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Summaries</a>
+                        <ul class="dropNav">
+                            <li><a href="${getGlobalLayoutAsset('glossariesCMS.php')}">Glossary</a></li>
+                            <li><a href="${getGlobalLayoutAsset('formulasCMS.php')}">Formulae</a></li>
                         </ul>
                     </li>
                     <li class="dropDown">
                         <a href="#" onclick="event.preventDefault(); this.parentElement.classList.toggle('open');">Manage</a>
                         <ul class="dropNav">
-                            <li><a href="${getGlobalLayoutAsset('matTopCMS.php')}">Materi dan Topik</a></li>
+                            <li><a href="${getGlobalLayoutAsset('matTopCMS.php')}">Materials and Topics</a></li>
                             <li><a href="${getGlobalLayoutAsset('userCMS.php')}">User</a></li>
                             <li><a href="${getGlobalLayoutAsset('../home.php')}">To Home</a></li>
                         </ul>
