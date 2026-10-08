@@ -106,7 +106,7 @@
 
                 <section class="glossary-list" aria-live="polite">
                     <?php if (!$glossaryResult || mysqli_num_rows($glossaryResult) === 0): ?>
-                        <p class="glossary-empty">Belum ada istilah yang sesuai dengan pencarianmu.</p>
+                        <p class="glossary-empty">Word not found</p>
                     <?php else: ?>
                         <?php while ($entry = mysqli_fetch_assoc($glossaryResult)): ?>
                             <article class="glossary-entry" id="<?php echo glossary_escape($entry['slug']); ?>">

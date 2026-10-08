@@ -426,6 +426,27 @@ html,body{
 	opacity:0.95;
 }
 
+/*In userCMS*/
+.detail-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 1rem 1.2rem;
+	border-radius: 18px;
+	border: 1px solid #e2e8f0;
+	background: #ffffff;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.detail-row strong {
+	font-size: 0.98rem;
+	color: #0f172a;
+}
+.detail-row span {
+	font-size: 0.95rem;
+	color: #475569;
+}
+
 /* Dropdown menu styles - Desktop */
 .dropDown{
 	position:relative;
@@ -721,6 +742,52 @@ button[onclick^="perendah"]:focus {
 #menuRumus li a{color:#fff;text-decoration:none}
 
 #clock{font-weight:700;text-align:center;padding:10px;border-radius:999px;background:linear-gradient(90deg,#eef9ef,#dff0e0);display:inline-block;border:1px solid rgba(220,20,60,0.12)}
+
+.intable-actions{
+	display:flex;
+	flex-direction:column;
+	gap:5px;
+	align-items:center;
+	justify-content:center;
+}
+
+.intable-actions .btn-primary{
+	box-sizing:border-box;
+	padding: 5px 10px;
+	width:90px;
+	height: 30px;
+	font-size:0.75rem;
+	border-radius:6px;
+	text-decoration:none;
+	background:var(--crimson);
+	font-family: "Helvetica Neue", sans-serif;
+	color:#fff;
+	transition:transform .12s ease, background .12s ease, opacity .12s ease;
+}
+
+.intable-actions button.btn-primary{
+	background:#176b3a;
+}
+
+.intable-actions a.btn-primary{
+	font-weight:750;
+}
+
+.hero-buttons{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	margin-top: -15px;
+}
+
+.hero-buttons a.btn-primary, .hero-buttons button.btn-primary{
+	width: 33%;
+}
+
+.hero-buttons button.btn-primary{
+	width: 33%;
+	height: 44px;
+}
 
 /* Responsive behavior - Mobile First */
 @media (max-width:768px){

@@ -137,7 +137,7 @@
         <!--bagian untuk isinya -->
 		<main class="hero" role="main">
             <div class="hero-inner formula-page">
-                <header class="glossary-intro">
+                <header class="formula-intro">
                     <h1 class="page-title">Collection of Formulas</h1>
                 </header>
 
@@ -146,7 +146,7 @@
                     <input type="text" id="formula-search" name="q" placeholder="Search formulas..." 
                         value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q'], ENT_QUOTES, 'UTF-8') : '' ?>">
                     
-                    <select id="glossary-topic" name="topic_id">
+                    <select id="formula-topic" name="topic_id">
                         <option value="">Pilih topik</option>
                         <?php foreach ($topics as $availableTopic): ?>
                             <option value="<?php echo (int) $availableTopic['topic_id']; ?>" 
@@ -156,13 +156,13 @@
                         <?php endforeach; ?>
                     </select>
 
-                    <button type="submit">Cari</button>
+                    <button type="submit">Search</button>
                 </form>
 
                 <section class="formula-list" aria-live="polite">
                     <?php 
                         if (!$result || mysqli_num_rows($result) === 0){
-                            echo "<p class=\"glossary-empty\">Formula is unavailable</p>";
+                            echo "<p class=\"formula-empty\">Formula is unavailable</p>";
                         }
                         else{
                             while ($row = mysqli_fetch_assoc($result)) {
