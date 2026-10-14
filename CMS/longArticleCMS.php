@@ -36,11 +36,11 @@
 				<div class="hero-cta">
 					<table id="contentMat" border="1">
                         <tr>
-                            <td>Judul</td>
-                            <td>Topik</td>
-                            <td>Sumber</td>
-                            <td>Tanggal</td>
-                            <td>Aksi</td>
+                            <td>Title</td>
+                            <td>Topic</td>
+                            <td>Source</td>
+                            <td>Date</td>
+                            <td>Actions</td>
                         </tr>
                         <?php
                             $jml_list = 10;
@@ -82,25 +82,25 @@
                     </table>
 				</div>
                 <br>
-                    <div name="pagination" id="pagination">
-                        <?php echo $halamanLessons; ?>
-                        <?php if($halamanLessons > 1): ?>
-                            | <a href="?pageL=<?php echo $halamanLessons-1; ?><?php if(isset($_GET['pageN'])) echo '&pageN=' . (int)$_GET['pageN']; ?>">Previous</a>
-                        <?php endif; ?>
-                        <?php if($hasNextLessons): ?>
-                            | <a href="?pageL=<?php echo $halamanLessons+1; ?><?php if(isset($_GET['pageN'])) echo '&pageN=' . (int)$_GET['pageN']; ?>">Next</a>
-                        <?php endif; ?>
-                    </div>
+                <div name="pagination" id="pagination">
+                    <?php echo $halamanLessons; ?>
+                    <?php if($halamanLessons > 1): ?>
+                        | <a href="?pageL=<?php echo $halamanLessons-1; ?><?php if(isset($_GET['pageN'])) echo '&pageN=' . (int)$_GET['pageN']; ?>">Previous</a>
+                    <?php endif; ?>
+                    <?php if($hasNextLessons): ?>
+                        | <a href="?pageL=<?php echo $halamanLessons+1; ?><?php if(isset($_GET['pageN'])) echo '&pageN=' . (int)$_GET['pageN']; ?>">Next</a>
+                    <?php endif; ?>
+                </div>
                 <br>
                 <h2>News</h2>
                 <div class="hero-cta">
                     <table id="contentMat" border="1">
                         <tr>
-                            <td>Judul</td>
-                            <td>Topik</td>
-                            <td>Sumber</td>
-                            <td>Tanggal</td>
-                            <td>Aksi</td>
+                            <td>Title</td>
+                            <td>Topic</td>
+                            <td>Source</td>
+                            <td>Date</td>
+                            <td>Actions</td>
                         </tr>
                         <?php
                             $halamanNews = isset($_GET['pageN']) ? max(1, (int) $_GET['pageN']) : 1;
@@ -113,7 +113,7 @@
                             $sqlstr = "SELECT a.id, t.namaTopik, a.gambar, a.judul, a.isi, a.sumber, a.tanggal 
                                         FROM articles a
                                             INNER JOIN topics t ON a.idTopik = t.id
-                                        WHERE a.idjenis IN (1, 3, 6)
+                                        WHERE a.idjenis IN (1, 6)
                                         ORDER BY a.id
                                         LIMIT $offsetNews,$jml_list";
 

@@ -27,6 +27,7 @@ class GlobalHeader extends HTMLElement {
                         <ul class="dropNav">
                             <li><a href="${getGlobalLayoutAsset('longArticleCMS.php')}">News and Materials</a></li>
                             <li><a href="${getGlobalLayoutAsset('shortArticleCMS.php')}">Trivia and History</a></li>
+                            <li><a href="${getGlobalLayoutAsset('experimentsCMS.php')}">Experiments</a></li>
                         </ul>
                     </li>
                     <li class="dropDown">

@@ -33,13 +33,10 @@
             document.addEventListener("DOMContentLoaded", function () {
                 const jenis = document.getElementById("idJenis").value;
                 const topik = document.getElementById("idTopik").value;
+                const materi = document.getElementById("idMateri").dataset.initialValue;
 
                 if(jenis) {
-                    chgTopik(jenis);
-                }
-
-                if (topik) {
-                    chgMateri(topik);
+                    chgTopik(jenis, topik, materi);
                 }
             });
 
@@ -78,13 +75,19 @@
             });
 
             //change topik
-            function chgTopik(idJenis) {
+            function chgTopik(idJenis, selectedTopik = null, selectedMateri = null) {
+                let topik = document.getElementById("idTopik");
+                let materi = document.getElementById("idMateri");
+                topik.innerHTML = "<option value=''>-- Pilih Topik --</option>";
+                materi.innerHTML = "<option value=''>-- Pilih Materi --</option>";
+
+                if (!idJenis) {
+                    return;
+                }
+
                 fetch("getTopik.php?idJenis=" + idJenis)
                     .then(response => response.json())
                     .then(data => {
-                        let topik = document.getElementById("idTopik");
-                        topik.innerHTML = "";
-
                         data.forEach(item => {
                             let option = document.createElement("option");
                             option.value = item.id;
@@ -92,11 +95,13 @@
                             topik.appendChild(option);
                         });
 
-                        // Clear materi dropdown when topik changes
-                        let materi = document.getElementById("idMateri");
-                        materi.innerHTML = "<option value=''>-- Pilih Materi --</option>";
-                    }
-                );
+                        if (selectedTopik && Array.from(topik.options).some(option => option.value === selectedTopik)) {
+                            topik.value = selectedTopik;
+                        }
+                        if (topik.value) {
+                            chgMateri(topik.value, selectedMateri);
+                        }
+                    });
             }
 
             //change materi
@@ -243,6 +248,12 @@
                 // escape filename for SQL safety
                 $gambar = mysqli_real_escape_string($db, $gambar);
 
+                //date set for history, date now for others
+                if ($idJenis == 2)
+                    $tanggal = $_POST['tanggal'];
+                else
+                    $tanggal = date("Y-m-d");
+
                 //querying
                 if(!empty($_POST['id']))
                 {
@@ -251,12 +262,13 @@
                                 SET idTopik = '$idTopik', idJenis = '$idJenis', 
                                     idMateri = '$idMateri', gambar = '$gambar', 
                                     judul = '$judul', isi = '$isi', sumber = '$sumber', 
-                                    created_by = '$username', tanggal = '" . date("Y-m-d") . "'
+                                    created_by = '$username', tanggal = '$tanggal'
                                 WHERE id = $id ";
 
-                    $finMessage = "Artikel sudah di-update!";
+                    $finMessage = "Article updated!";
                 }
-                else{
+                else
+                {
                     //add
                     $maxID = mysqli_query($db, "SELECT MAX(id) AS 'idBerita' FROM articles");
                     $idOld = mysqli_fetch_array($maxID);
@@ -267,9 +279,9 @@
                                     tanggal, created_by)
                                 VALUES($idNew, '$idTopik', '$idJenis', '$idMateri', 
                                     '$gambar', '$judul', '$isi', '$sumber', 
-                                    '" . date("Y-m-d") . "', '$username')";
+                                    '$tanggal', '$username')";
 
-                    $finMessage = "Artikel sudah ditambah!";
+                    $finMessage = "Article added!";
                 }
 
                 // execute the query
@@ -315,7 +327,10 @@
                     </h2>
                 </center>
                 <div class="hero-cta">
-                    <form class="adminaddnews admin-form" method="post" action="#" align="left" enctype="multipart/form-data" onsubmit="return validateForm();">
+                    <form class="adminaddnews admin-form" method="post" action="#" 
+                        align="left" enctype="multipart/form-data" 
+                        onsubmit="return validateForm();">
+                        
                         <table border = "0" style="font-size: 15px;">
                             <?php
                                 if($id != "0")
@@ -327,7 +342,7 @@
                                 }
                             ?>
                             <tr>
-                                <td>Judul</td>
+                                <td>Title</td>
                                 <td><input type="text" value= "<?php echo $judul ?? null; ?>" name='judul' class="adminaddnews" /></td>
                             </tr>
                             <tr>
@@ -416,8 +431,8 @@
                             <tr>
                                 <td>Materi</td>
                                 <td>
-                                    <select id="idMateri" name="idMateri" class="dropdownCMS" style="width: 300px; padding: 5px;">
-                                    <option value="">-- Pilih Materi --</option>
+                                    <select id="idMateri" name="idMateri" data-initial-value="<?php echo htmlspecialchars((string) ($idMateri ?? ''), ENT_QUOTES, 'UTF-8'); ?>" class="dropdownCMS" style="width: 300px; padding: 5px;">
+                                    <option value="0">-- Pilih Materi --</option>
                                         <?php
                                             $sqlstr = "SELECT id, name, topics_id FROM materials WHERE topics_id = $option_id ";
                                             $hasil = mysqli_query($db, $sqlstr);
@@ -435,7 +450,7 @@
                                                     }
                                                 }
                                                  else {
-                                                    echo "<option value=\"\">-- Tidak ada Materi --</option>";
+                                                    echo "<option value=\"0\">-- Tidak ada Materi --</option>";
                                                 }
                                             }
                                             else
@@ -484,8 +499,23 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Date of Happening</td>
+                                <td>
+                                    <input type="text" value= "<?php echo $tanggal ?? null; ?>" name='tanggal' class="adminaddnews" style="width:200px"/>
+                                    <p>In YYYY-MM-DD format</p>
+                                    <p>For History Only</p>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td></td>
-                                <td><input type="submit" value="<?php echo ($id == 0) ? 'Tambah Artikel' : 'Simpan Perubahan'; ?>" class="btn-primary"/></td>
+                                <td>
+                                    <input type="submit" 
+                                        value="<?php echo ($id == 0) ? 'Tambah' : 'Simpan'; ?>" 
+                                        class="btn-primary"/>
+
+                                    <button type="button" class="btn-primary" onclick="window.location.href='longArticleCMS.php'">Back to News Master</button>
+                                    <button type="button" class="btn-primary" onclick="window.location.href='shortArticleCMS.php'">Back to Trivias Master</button>
+                                </td>
                             </tr>
                         </table>
                     </form>
