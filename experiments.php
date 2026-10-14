@@ -144,7 +144,22 @@
                     ?>
                             <div class='detail-row'>
                                 <div class='detail-news'>
-                                    <h2><?php echo exp_escape($row['judul']); ?></h2>
+                                    <h2>
+                                        <?php
+                                            $pdfFile = basename((string) $row['gambar']);
+                                            $pdfPath = __DIR__ . DIRECTORY_SEPARATOR . 'CMS' . DIRECTORY_SEPARATOR
+                                                . 'experiments' . DIRECTORY_SEPARATOR . $pdfFile;
+                                            if ($pdfFile !== '' && strtolower(pathinfo($pdfFile, PATHINFO_EXTENSION)) === 'pdf' && is_file($pdfPath)):
+                                            ?>
+                                                <a href="<?php echo exp_escape('CMS/experiments/' . rawurlencode($pdfFile)); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <?php echo exp_escape($row['judul']); ?>
+                                                </a>
+                                            <?php else: ?>
+                                            <?php echo exp_escape($row['judul']); ?>
+                                        <?php endif; ?>
+                                    </h2>
+                                    <p>Topic: <?php echo exp_escape($row['namaTopik']); ?></p>
+                                    <p>Date: <?php echo exp_escape(date('d M Y', strtotime($row['tanggal']))); ?></p>
                                     <p>Author: <?php echo exp_escape($row['researcher_name']); ?></p>
                                     <p><?php echo exp_escape($row['isi']); ?></p>
                                 </div>
@@ -162,4 +177,3 @@
 		</footer>
     </body>
 </html>
-
